@@ -17,12 +17,12 @@ describe('GET/getMovieList', () => {
 //Find movie by id test
 describe('GET/findMovie', () => {
   it('should find a movie by id', async () => {
-    const response = await request.get('/:id');
+    const response = await request.get('/23a74303-a1fe-42b3-946c-0f82abad3eeb');
     expect(response.statusCode).toEqual(200);
-    expect(response.body).toBe('json');
+    expect.stringContaining('json');
   });
   it("should respond with a 404 status if the movie id didn't found", async () => {
-    const response = await request.get('/:id');
+    const response = await request.get('/wwwww');
     expect(response.statusCode).toEqual(404);
     expect.stringContaining('json');
   });
@@ -31,9 +31,14 @@ describe('GET/findMovie', () => {
 //Creating a new movie test
 describe('POST/createMovie', () => {
   it('should creating a new movie', async () => {
-    const response = await request.post('/');
+    const movie = {
+      title: 'RED',
+      director: 'Robert Schwentke',
+      release_date: '2012-10-22',
+    };
+    const response = await request.post('/').send(movie);
     expect(response.statusCode).toEqual(200);
-    expect(response.body).toMatchObject({
+    expect.objectContaining({
       title: 'RED',
       director: 'Robert Schwentke',
       release_date: '2012-10-22',
@@ -49,7 +54,9 @@ describe('POST/createMovie', () => {
 //Delete a movie test
 describe('DELETE/deleteMovie', () => {
   it('should deleting a movie', async () => {
-    const response = await request.delete('/:id');
+    const response = await request.delete(
+      '/23a74303-a1fe-42b3-946c-0f82abad3eeb',
+    );
     expect(response.statusCode).toEqual(200);
     expect.stringContaining('json');
   });

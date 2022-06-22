@@ -17,12 +17,13 @@ export const getMovieList = (_req, res) => {
 export const findMovie = (req, res) => {
   const { id } = req.params;
   const findMovie = movies.find((movie) => movie.id === id);
+  console.log('findMovie', findMovie);
   if (!findMovie) {
     res.status(404).json({
       message: `No movie with the id ${id} found`,
     });
   } else {
-    res.status(200).send(movies.filter((movie) => movie.id === id));
+    res.status(200).json(movies.filter((movie) => movie.id === id));
   }
 };
 
