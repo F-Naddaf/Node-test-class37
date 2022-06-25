@@ -17,7 +17,6 @@ export const getMovieList = (_req, res) => {
 export const findMovie = (req, res) => {
   const { id } = req.params;
   const findMovie = movies.find((movie) => movie.id === id);
-  console.log('findMovie', findMovie);
   if (!findMovie) {
     res.status(404).json({
       message: `No movie with the id ${id} found`,
@@ -43,7 +42,7 @@ export const createMovie = (req, res) => {
   }
   movies.push(newMovie);
   res.status(200).json({
-    message: `The movie with a title: ${newMovie.title} has been add it to the list!`,
+    message: `The movie with a id: ${newMovie.id} has been add it to the list!`,
   });
 };
 
@@ -59,7 +58,7 @@ export const deleteMovie = (req, res) => {
   } else {
     res.status(200).json({
       message: `The movie with a id: ${id} is deleted from the list`,
-      movies: movies.filter((movie) => movie.id !== id)
+      movies: movies.filter((movie) => movie.id !== id),
     });
   }
 };
